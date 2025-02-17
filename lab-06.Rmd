@@ -10,6 +10,7 @@ output: github_document
 ```{r load-packages, message = FALSE}
 library(tidyverse) 
 library(dsbox)
+library(ggplot2)
 library(mosaicData) 
 staff <- read_csv("data/instructional-staff.csv")
 ```
@@ -24,7 +25,7 @@ staff_long <- staff %>%
 
 ```
 
-### Exercise 2
+### Staff by Year Graph
 
 ```{r graph, fig.width = 8}
 staff_long %>%
@@ -46,8 +47,38 @@ staff_long %>%
 
 
 
-### Exercise 3
+### Fisheries Graph
 
-...
+```{r Fisheries}
+fisheries <- read_csv("data/fisheries.csv")
 
-Add exercise headings as needed.
+view(fisheries)
+```
+
+Looking at this data set, we have four variables. Country, capture, aquaculture, and total. Based on their data, it's clear that China leads aquaculture by a landslide. One way we could visualize this is by taking out China and individually reporting their statistics. It would help with the visual. Another way to help would be to create two separate graphs, one for aquaculture and one for capture. The third way (the one I am picking to visualize) is to show the top 10 fisheries in the total column. From there, I would indicate the proportion of the total fish obtained via aquaculture and capture. There is probably a better way to visualize it, but for now I overlay a bar plot of the amount obtained by aquaculture with a blank bar plot of the total amount of fish (to give the illusion of the rest being by capture.)
+
+```{r visual for fisheries, fig.width = 10}
+
+top_10 <- fisheries %>%
+  arrange(desc(total)) %>%
+    slice(1:10) 
+
+
+top_10 %>% ggplot(aes(
+  x = fct_reorder(country, total),
+  y = total
+)) +
+  geom_bar(stat = "identity", aes(y = aquaculture), alpha = .6, fill = "salmon")+
+  geom_bar(stat = "identity", fill = NA, color = "Black")+
+  coord_flip()+
+  labs(
+    x = "Country",
+    y = "Amount in Tons",
+    title = "Tonnage of Fish captured",
+    subtitle = "Salmon indicates the proportion farmed via aquaculture instead of capture"
+  ) 
+
+```
+
+
+
