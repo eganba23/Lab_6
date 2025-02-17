@@ -1,7 +1,7 @@
 ---
 title: "Lab 06 - Ugly charts and Simpson's paradox"
-author: "Insert your name here"
-date: "Insert date here"
+author: "Benjamin Egan"
+date: "2-17-25"
 output: github_document
 ---
 
@@ -11,21 +11,40 @@ output: github_document
 library(tidyverse) 
 library(dsbox)
 library(mosaicData) 
+staff <- read_csv("data/instructional-staff.csv")
 ```
 
 ### Exercise 1
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+```{r wide to long}
+
+staff_long <- staff %>%
+  pivot_longer(cols = -faculty_type, names_to = "year") %>%
+  mutate(value = as.numeric(value))
+
+```
 
 ### Exercise 2
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+```{r graph, fig.width = 8}
+staff_long %>%
+  ggplot(aes(
+    x = year,
+    y = value,
+    group = faculty_type,
+    color = faculty_type
+  )) +
+  geom_line()+
+  theme_bw()+
+  labs(
+    x = "Year",
+    y = "Percent of Total Instructional Staff",
+    title = "Trends in Instructional Staff Employee Status",
+    color = "Faculty Status"
+  )
+```
+
+
 
 ### Exercise 3
 
