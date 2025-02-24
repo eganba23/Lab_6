@@ -187,10 +187,12 @@ ggplot(aes(
     categorical variable with answers (No or Yes). Age is a continuous
     numerical variable that recorded their age in years.
 
-4.  based on the two simple graphs I made, I would expect that smoking
+4.  Based on the two simple graphs I made, I would expect that smoking
     decreasing your health, leading to earlier death. The more complex
     graph shows me that there is a more spread out distriubtion of death
     in the smokers than htere is for the non-smokers.
+
+### A different visual
 
 ``` r
 Whickham %>%
@@ -226,12 +228,14 @@ Whickham_age_breakdown <- Whickham_alter %>%
     age > "64" ~ "65+",
       ))
 
- ggplot(Whickham_age_breakdown, aes(y = fct_rev(smoker), 
-                     fill = fct_rev(outcome))) +
+Whickham_age_breakdown %>%
+ ggplot(aes(
+   y = fct_rev(smoker), 
+   fill = fct_rev(outcome))) +
   geom_bar(position = "fill") + 
    facet_wrap(~age_cat)+
   labs(title = "Smoking outcome",
-       y = "Did they Smoke?", x = NULL)
+     y = "Did they Smoke?", x = NULL)
 ```
 
 ![](lab-06_files/figure-gfm/age%20breakdown-1.png)<!-- -->
