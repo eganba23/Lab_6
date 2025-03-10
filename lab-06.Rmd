@@ -13,6 +13,9 @@ library(mosaicData)
 staff <- read_csv("data/instructional-staff.csv")
 ```
 
+
+link to assignment: https://datascience4psych.github.io/DataScience4Psych/lab06.html
+
 ### Exercise 1
 
 ```{r wide to long}
