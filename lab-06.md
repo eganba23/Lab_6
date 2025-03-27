@@ -3,6 +3,9 @@ Lab 06 - Ugly charts and Simpson’s paradox
 Benjamin Egan
 2-17-25
 
+link to assignment:
+<https://datascience4psych.github.io/DataScience4Psych/lab06.html>
+
 ### Exercise 1
 
 ``` r
